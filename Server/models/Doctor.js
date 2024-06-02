@@ -6,9 +6,9 @@ const doctorSchema = new Schema({
     name:{type:String, required:true},
     password:{type:String, required:true},
     photo:{type:String},
-    phone:{type:Number},
+    phone:{type:String},
     role:{type:String, default:'employee'},
-    ticketPrice:{type:Number, default:"$30"},
+    ticketPrice:{type:Number, default:30},
 
     //doctors details when signingup first time
     specialization:{type:String},
