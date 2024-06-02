@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const doctorSchema = new Schema({
     email:{type:String, required:true, unique:true},
