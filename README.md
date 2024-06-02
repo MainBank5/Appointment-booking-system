@@ -1,0 +1,2 @@
+This is a doctor's appointment booking system. Users can create an account, book an appointment with their desired doctor and leave a review of the doctor. Doctors can also create their profile, show their experience, specilization and days when they're open to take appointments. Once a doctor sets up their profile, they can log in to see and manage their list of appointments. 
+The system is built with Node.js/Express and MongoDB for the server and database and React, tailwindCSS for the frontend. 
