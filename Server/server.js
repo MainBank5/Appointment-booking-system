@@ -25,7 +25,7 @@ app.use('/api/user/login', require('./routes/userRoutes/userLoginRoute'));
 app.use('/api/doctor/register', require('./routes/doctorRoutes/doctorRegisterRoute'));
 app.use('/api/doctor/login', require('./routes/doctorRoutes/doctorLoginRoute'));
 
-app.use('/user/update', require('./routes/userRoutes/userUpdateRoute'));
+app.use('/api/user/update', require('./routes/userRoutes/userUpdateRoute'));
 
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB');

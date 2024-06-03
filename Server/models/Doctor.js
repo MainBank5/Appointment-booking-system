@@ -30,4 +30,4 @@ const doctorSchema = new Schema({
     refreshToken:String
 })
 
-module.exports = mongoose.models('Doctor', doctorSchema);
+module.exports = mongoose.model('Doctor', doctorSchema);
