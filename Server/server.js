@@ -22,6 +22,9 @@ app.use(cors(corsOptions));
 app.use('/api/user/register', require('./routes/userRoutes/userRegisterRoute'));
 app.use('/api/user/login', require('./routes/userRoutes/userLoginRoute'));
 
+app.use('/api/doctor/register', require('./routes/doctorRoutes/doctorRegisterRoute'));
+app.use('/api/doctor/login', require('./routes/doctorRoutes/doctorLoginRoute'));
+
 app.use('/user/update', require('./routes/userRoutes/userUpdateRoute'));
 
 mongoose.connection.once('open', () => {
