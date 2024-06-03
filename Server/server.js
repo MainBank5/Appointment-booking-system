@@ -19,9 +19,10 @@ app.use(cookieParser());
 
 app.use(cors(corsOptions));
 
-app.use('/user/register', require('./routes/userRoutes/userregisterRoute'));
-app.use('/user/login', require('./routes/userRoutes/userLoginRoute'));
-app.use('/user/update/:id', require('./routes/userRoutes/userUpdateRoute'));
+app.use('/api/user/register', require('./routes/userRoutes/userRegisterRoute'));
+app.use('/api/user/login', require('./routes/userRoutes/userLoginRoute'));
+
+app.use('/user/update', require('./routes/userRoutes/userUpdateRoute'));
 
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB');

@@ -10,6 +10,7 @@ const userSchema = new Schema({
     gender:{type:String, enum:["male", "female", "trans", "other"]},
     bloodType:{type:String}, 
     appointments:[{type:mongoose.Types.ObjectId, ref:"Appointment"}],
+    roles:{patient:Number, default:1002 },
     refreshToken:String
 })
 
