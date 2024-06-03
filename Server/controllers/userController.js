@@ -80,12 +80,14 @@ const updateUserDetails = asyncHandler(async (req, res) => {
 
    const foundUser = await User.findOne({_id:req.params.id}).exec();
    if(!foundUser) return res.status(204).jsons({message:"No user with that ID was found"});
-   const {name, email, password, bloodType, phone} = req.body;
+   const {name, email, password, bloodType, phone, photo} = req.body;
    if(name) foundUser.name = name;
    if(email) foundUser.email = email;
    if(password) foundUser.password = await bcrypt.hash(password, 10);
    if(bloodType) foundUser.bloodType = bloodType;
    if(phone) foundUser.phone = phone;
+   if(photo) foundUser.photo = photo;
+   
   await foundUser.save();
   res.status(200).json({message: "User details updated successfully!"});
 
