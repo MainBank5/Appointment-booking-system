@@ -27,7 +27,7 @@ const doctorSchema = new Schema({
     totalRating:{type:Number, default:0},
     isApproved:{type:String, enum:["pending", "approved", "cancelled"], default:"pending"},
     appointments:[{type:mongoose.Types.ObjectId, ref:"Appointment"}],
-    refreshToken:String
-})
+    refreshToken:[String]
+});
 
 module.exports = mongoose.model('Doctor', doctorSchema);

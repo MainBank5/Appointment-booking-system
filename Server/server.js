@@ -31,6 +31,7 @@ app.use('/api/doctor/login', require('./routes/doctorRoutes/doctorLoginRoute'));
 app.use(verifyAccess);
 app.use('/api/user/update', require('./routes/userRoutes/userUpdateRoute'));
 app.use('api/user/appointment', require('./routes/appointmentRoute'));
+app.use('api/user/review', require('./routes/reviewRoute'));
 
 
 mongoose.connection.once('open', () => {

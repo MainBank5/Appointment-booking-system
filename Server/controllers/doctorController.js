@@ -37,7 +37,7 @@ const doctorLogin = asyncHandler (async (req, res) => {
     if(isMatch) {
         const roles = Object.values(findUser.roles).filter(Boolean)
         const accessToken = jwt.sign (
-            {id:findUser._id, roles:findUser.roles},
+            {roles:findUser.roles},
             process.env.ACCESS_TOKEN_SECRET,
             {expiresIn:'30m'}
         );

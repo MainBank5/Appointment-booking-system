@@ -14,7 +14,7 @@ const userSchema = new Schema({
         patient: { type: Number, default: 1002 }
       
     },
-    refreshToken: { type: String }
+    refreshToken: [String]
 });
 
 

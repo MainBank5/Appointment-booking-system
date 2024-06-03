@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .header {
+        @apply bg-[url('./assets/header-bg.png')] bg-no-repeat bg-cover bg-center w-full h-[100px]
+    }
+    .container {
+        @apply mx-auto px-12 max-w-full w-[1440px]
+    }
+}

@@ -12,7 +12,7 @@ const verifyAccess = (req, res, next) => {
         process.env.ACCESS_TOKEN_SECRET,
         (err, decode) => {
             if (err) return res.status(403).json({message:"Access denied"});
-            req.user = decode.id;
+            req.userId = decode.id;//forward the user id
             req.roles= decode.roles;
             next();
         }
