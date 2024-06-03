@@ -19,3 +19,5 @@ const verifyAccess = (req, res, next) => {
     )
 
 }
+
+module.exports = {verifyAccess};
