@@ -9,7 +9,8 @@ const userSchema = new Schema({
     photo:{type:String},
     gender:{type:String, enum:["male", "female", "trans", "other"]},
     bloodType:{type:String}, 
-    appointments:[{type:mongoose.Types.ObjectId, ref:"Appointment"}]
+    appointments:[{type:mongoose.Types.ObjectId, ref:"Appointment"}],
+    refreshToken:String
 })
 
 
