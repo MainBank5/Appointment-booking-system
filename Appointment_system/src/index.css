@@ -3,14 +3,37 @@
 @tailwind utilities;
 
 @layer components {
-    .header {
-        @apply bg-[url('./assets/header-bg.png')] bg-no-repeat bg-cover bg-center w-full h-[100px]
-    }
-    .container {
-        @apply mx-auto px-20 max-w-full w-[1440px]
-    }
+  .header {
+    @apply bg-[url('./assets/header-bg.png')] bg-no-repeat bg-cover bg-center w-full h-[100px];
+  }
+  .container {
+    @apply mx-auto px-20 max-w-full w-[1440px];
+  }
+  .hero_section {
+    @apply flex flex-col justify-center items-center bg-[url('./assets/hero-bg.png')];
+  }
+  .text_para {
+    @apply text-[18px] leading-[30px] font-[400] text-gray-800 mt-[18px];
+  }
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-    .hero_section {
-        @apply flex flex-col justify-center items-center bg-[url('./assets/hero-bg.png')]
-    }
+@layer components {
+  .header {
+    @apply bg-[url('./assets/header-bg.png')] bg-no-repeat bg-cover bg-center w-full h-[100px];
+  }
+  .container {
+    @apply mx-auto px-20 max-w-full w-[1440px];
+  }
+  .hero_section {
+    @apply flex flex-col justify-center items-center bg-[url('./assets/hero-bg.png')] bg-cover bg-no-repeat bg-center;
+  }
+  .text_para {
+    @apply text-[18px] leading-[30px] font-[400] text-gray-800 mt-[18px];
+  }
+  .btn {
+    @apply bg-blue-600 py-[15px] px-[35px] rounded-[50px] text-white font-[600] mt-[38px]
+  }
 }
