@@ -9,4 +9,8 @@
     .container {
         @apply mx-auto px-20 max-w-full w-[1440px]
     }
+
+    .hero_section {
+        @apply flex flex-col justify-center items-center bg-[url('./assets/hero-bg.png')]
+    }
 }

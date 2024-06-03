@@ -34,7 +34,7 @@ const Header = () => {
           {/*logo */}
         <div className='max-w-full flex items-center gap-1 cursor-pointer'>
           <span><FaHandHoldingMedical size={35} className='text-blue-600'/></span>
-          <h1 className='text-2xl'> MediCare</h1>
+          <h1 className='md:text-2xl text:3xl'> MediCare</h1>
         </div>
 
         <div className="hidden md:block">
@@ -81,7 +81,7 @@ const Header = () => {
                 <li key={index}>
                   <NavLink
                     to={link.path}
-                    className="text-2xl text-white hover:text-blue-200"
+                    className="text-3xl text-white hover:text-blue-200"
                     onClick={handleMobileMenu}
                   >
                     {link.name}
