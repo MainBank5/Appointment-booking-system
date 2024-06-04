@@ -76,5 +76,8 @@ const doctorsProfile = asyncHandler (async (req, res) => {
     if (timeSlots) foundDoctor.timeSlots = timeSlots;
 })
 
+const getAllDoctors = asyncHandler ( async (req, res ) => {
 
-module.exports = {doctorRegister, doctorLogin}
+});
+
+module.exports = { doctorRegister, doctorLogin, getAllDoctors }
