@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router-dom';
 import {FaTimes, FaBars, FaHandHoldingMedical} from 'react-icons/fa'
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const navLinks = [
   {
@@ -21,14 +21,32 @@ const navLinks = [
   }
 ]
 
+
+
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const handleMobileMenu = () => {
     setOpenMenu(prev => !prev)
   }
+  const headerRef = useRef(null);
+
+  const handleScroll = () => {
+    window.addEventListener('scroll', () => {
+      if(document.body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
+        headerRef.current.classList.add('sticky-nav')
+      } else {
+        headerRef.current.classList.remove('sticky-nav')
+      }
+    })
+  }
+  useEffect ( () => {
+    handleScroll()
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  })
 
   return (
-    <nav className="header flex items-center">
+    <nav className="header flex items-center" ref={headerRef}>
       <div className='container flex items-center justify-between'>
 
           {/*logo */}
@@ -74,14 +92,14 @@ const Header = () => {
         {openMenu && (
           <div
             className="fixed inset-0 bg-blue-500 bg-opacity-95 z-10 flex flex-col items-center gap-4 py-6 transition-transform transform"
-            style={{ top: '70px' }}
+            style={{ top: '70px ' }}
           >
             <ul className="flex flex-col items-center gap-4">
               {navLinks.map((link, index) => (
                 <li key={index}>
                   <NavLink
                     to={link.path}
-                    className="text-3xl text-white hover:text-blue-200"
+                    className="text-3xl text-gray-900 hover:text-blue-200"
                     onClick={handleMobileMenu}
                   >
                     {link.name}
@@ -90,7 +108,7 @@ const Header = () => {
               ))}
             </ul>
             <Link to="/login">
-              <button className="bg-white text-blue-600 px-4 py-2 rounded-md flex items-center">
+              <button className="bg-blue-600 text-[34px] text-white px-4 py-2 rounded-md flex items-center">
                 Log In
               </button>
             </Link>

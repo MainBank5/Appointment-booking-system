@@ -22,13 +22,16 @@
 
 @layer components {
   .header {
-    @apply bg-[url('./assets/header-bg.png')] bg-no-repeat bg-cover bg-center w-full h-[100px];
+    @apply bg-[url('./assets/images/header-bg.png')] bg-no-repeat bg-cover bg-center w-full h-[100px];
+  }
+  .heading{
+    @apply text-[44px] leading-[54px] font-[700] text-gray-800
   }
   .container {
     @apply mx-auto px-20 max-w-full w-[1440px];
   }
   .hero_section {
-    @apply flex flex-col justify-center items-center bg-[url('./assets/hero-bg.png')] bg-cover bg-no-repeat bg-center;
+    @apply bg-[url('./assets/images/hero-bg.png')] bg-cover bg-no-repeat bg-center;
   }
   .text_para {
     @apply text-[18px] leading-[30px] font-[400] text-gray-800 mt-[18px];
