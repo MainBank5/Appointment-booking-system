@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
+
 *{
     margin: 0;
     padding: 0;
@@ -8,6 +10,7 @@
 body{
     font-style: normal;
     text-emphasis-color: red;
+    font-family: 'Almari', sans-serif;
 }
 
 .sticky-nav{
