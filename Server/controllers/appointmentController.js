@@ -2,34 +2,30 @@ const Appointment = require('../models/Appointment');
 const asyncHandler = require('express-async-handler');
 
 const appointmentBooking = asyncHandler(async (req, res) => {
-    //const {doctor} = req.params.id 
     const { doctor, appointmentDate } = req.body;
+    //console.log('Request body:', req.body);
+    //console.log('User ID from token:', req.userId);
 
-    // Validate required fields
     if (!doctor || !appointmentDate) {
         return res.status(400).json({ message: "Doctor and appointment date are required!" });
     }
 
-    try {
-        // Extract userId from the req.object as forwarded by the verifyAccess middleware
-        const userId = req.userId;
+    const userId = req.userId;
 
-        // Create a new appointment
+    try {
         const newAppointment = await Appointment.create({
             user: userId,
             doctor,
             appointmentDate,
         });
 
-        if (newAppointment) {
-            res.status(201).json({ newAppointment, message: "Appointment created successfully!" });
-        } else {
-            res.status(500).json({ message: "Failed to book an appointment! Server error encountered." });
-        }
+        res.status(201).json({ newAppointment, message: "Appointment created successfully!" });
     } catch (error) {
-        res.status(500).json({ message: "Failed to book an appointment! Server error encountered." });
+        console.error('Error creating appointment:', error);
+        res.status(500).json({ message: "Failed to book an appointment! Server error encountered" });
     }
 });
 
 module.exports = { appointmentBooking };
+
 
