@@ -57,7 +57,7 @@ const doctorLogin = asyncHandler (async (req, res) => {
     }
 });
 
-const doctorsProfile = asyncHandler (async (req, res) => {
+const updateDoctor = asyncHandler (async (req, res) => {
     const doctorId = req.params.id;
     if(!doctorId) return res.status(400).json({message:"ID required"});
     
@@ -74,6 +74,14 @@ const doctorsProfile = asyncHandler (async (req, res) => {
     if (bio) foundDoctor.bio = bio;
     if (experience) foundDoctor.experience = experience;
     if (timeSlots) foundDoctor.timeSlots = timeSlots;
+
+    const result = await foundDoctor.save();
+    console.log(result)
+    if(result) {
+        return res.status(200).json({message:"Doctor's infor updated successfully!"})
+    } else {
+        return res.status(500).json({message:"Couldnt updated the detauls due to Internal server error!"})
+    }
 })
 
 const getAllDoctors = asyncHandler ( async (req, res ) => {
@@ -83,14 +91,6 @@ const getAllDoctors = asyncHandler ( async (req, res ) => {
 
 });
 
-const updateDoctor = asyncHandler (async (req, res) => {
-    if(!req?.params?.id) return res.status(400).json({message:"Doctor's ID required"});
-    const {doctorId} = req.params.id;
 
-    const findDoctor = await Doctor.findById({doctorId});
-    if(!findDoctor) {
-        return res.status(204).json({message:"Sorry! We didnt find a doctor with that ID!"})
-    }
-})
 
 module.exports = { doctorRegister, doctorLogin, getAllDoctors, updateDoctor }

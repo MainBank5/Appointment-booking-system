@@ -5,11 +5,11 @@ const doctorController = require('../../controllers/doctorController');
 router.route('/')
      .post(doctorController.doctorRegister)
      .post(doctorController.doctorLogin)
+     .put(doctorController.updateDoctor)
      .get(doctorController.getAllDoctors);
 
 
-router.route('/:id')
-       .get(doctorController);
+
 
 
 
