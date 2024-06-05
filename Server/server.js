@@ -25,11 +25,12 @@ app.use('/api/user/register', require('./routes/userRoutes/userRegisterRoute'));
 app.use('/api/user/login', require('./routes/userRoutes/userLoginRoute'));
 
 //doctor routes
-app.use('/api/doctor/register', require('./routes/doctorRoutes/doctorRegisterRoute'));
-app.use('/api/doctor/login', require('./routes/doctorRoutes/doctorLoginRoute'));
+app.use('/api/doctor/register', require('./routes/doctor/doctorRoute'));
+app.use('/api/doctor/login', require('./routes/doctor/doctorRoute'));
 
 app.use(verifyAccess);
 app.use('/api/user/update', require('./routes/userRoutes/userUpdateRoute'));
+app.use('/api/doctors', require('./routes/doctor/doctorRoute'));
 app.use('api/user/appointment', require('./routes/appointmentRoute'));
 app.use('api/user/review', require('./routes/reviewRoute'));
 

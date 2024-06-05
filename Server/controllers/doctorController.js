@@ -77,7 +77,20 @@ const doctorsProfile = asyncHandler (async (req, res) => {
 })
 
 const getAllDoctors = asyncHandler ( async (req, res ) => {
+    const doctors = await Doctor.find();
+    if(!doctors) return res.status(204).json({message:"No doctors found in the database!"});
+    res.json({doctors})
 
 });
 
-module.exports = { doctorRegister, doctorLogin, getAllDoctors }
+const updateDoctor = asyncHandler (async (req, res) => {
+    if(!req?.params?.id) return res.status(400).json({message:"Doctor's ID required"});
+    const {doctorId} = req.params.id;
+
+    const findDoctor = await Doctor.findById({doctorId});
+    if(!findDoctor) {
+        return res.status(204).json({message:"Sorry! We didnt find a doctor with that ID!"})
+    }
+})
+
+module.exports = { doctorRegister, doctorLogin, getAllDoctors, updateDoctor }

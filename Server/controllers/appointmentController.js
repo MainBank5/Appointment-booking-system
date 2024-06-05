@@ -2,6 +2,7 @@ const Appointment = require('../models/Appointment');
 const asyncHandler = require('express-async-handler');
 
 const appointmentBooking = asyncHandler(async (req, res) => {
+    //const {doctor} = req.params.id 
     const { doctor, appointmentDate } = req.body;
 
     // Validate required fields
