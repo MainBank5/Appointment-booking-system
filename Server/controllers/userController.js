@@ -100,7 +100,7 @@ const handleUserLogout = asyncHandler( async ( req, res) => {
   //handle deletion of accesstoken on client side
 
   const cookies = req.cookies;
-  if(!cookies.jwt) return res.status(204); //no content
+  if(!cookies?.jwt) return res.status(204); //no content
   const refreshToken = cookies.jwt;
 
   //is the refreshToken in the database?

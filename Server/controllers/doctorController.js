@@ -95,19 +95,19 @@ const handleDoctorLogout = asyncHandler( async ( req, res) => {
     //handle deletion of accesstoken on client side
 
     const cookies = res.cookies();
-    if(!cookies.jwt) return res.status(204); //no content
+    if(!cookies?.jwt) return res.status(204); //no content
     const refreshToken = cookies.jwt;
 
     //is the refreshToken in the database?
-    const foundUser = await Doctor.findOne({refreshToken}).exec().lean();
-    if(!foundUser) {
+    const foundDoctor = await Doctor.findOne({refreshToken}).exec().lean();
+    if(!foundDoctor) {
         res.clearCookie('jwt', {httpOnly:true, sameSite:'None', maxAge:24 * 60 * 60 * 100});
         return res.sendStatus(204)
     }
 
     //delete the refreshToken in the database
-    foundUser.refreshToken = foundUser.refreshToken.filter(token => token !== refreshToken);
-    const result = await foundUser.save();
+    foundDoctor.refreshToken = foundDoctor.refreshToken.filter(token => token !== refreshToken);
+    const result = await foundDoctor.save();
     console.log(result);
 
     //clear the refreshToken cookie
