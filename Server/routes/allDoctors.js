@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getAllDoctors} = require('../../controllers/doctorController');
+const {getAllDoctors} = require('../controllers/doctorController');
 
 router.get('/', getAllDoctors)
 
