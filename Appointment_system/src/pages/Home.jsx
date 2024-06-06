@@ -43,7 +43,7 @@ const Home = () => {
                     Book an Appointment
                   </button>
                 </div>
-                <div className="mt-[25px] flex flex-col lg:flex-row lg:items-center lg:mt-[40px] gap-5 lg:gap-30px">
+                <div className="mt-[25px] flex flex-col lg:flex-row lg:items-center lg:mt-[20px] gap-5 lg:gap-30px">
                   <div>
                     <h2 className="text-[36px] leading-[56px] lg:text-[44px] lg:leading-[54px] font-[700] text-gray-800">
                       30+
@@ -52,7 +52,7 @@ const Home = () => {
                     <p className="text_para">Years of Experience</p>
                   </div>
                   <div>
-                    <h2 className="text-[36px] leading-[56px] lg:text-[44px] lg:leading-[54px] font-[700] text-gray-800">
+                    <h2 className="text-[36px] leading-[56px] lg:text-[44px] lg:leading-[50px] font-[700] text-gray-800">
                       10+
                     </h2>
                     <span className="block h-2 w-[100px] bg-purple-600 rounded-full mt-[-12px]"></span>

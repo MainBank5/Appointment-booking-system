@@ -13,7 +13,7 @@
     @apply flex flex-col justify-center items-center bg-[url('./assets/hero-bg.png')];
   }
   .text_para {
-    @apply text-[18px] leading-[30px] font-[400] text-gray-800 mt-[18px];
+    @apply text-[18px] leading-[30px] font-[400] text-gray-800 mt-[10px];
   }
 }
 @tailwind base;

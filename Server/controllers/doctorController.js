@@ -85,7 +85,7 @@ const updateDoctor = asyncHandler (async (req, res) => {
 })
 
 const getAllDoctors = asyncHandler ( async (req, res ) => {
-    const doctors = await Doctor.find();
+    const doctors = await Doctor.find().select('-password -email -refreshToken'); //exclude email and password
     if(!doctors) return res.status(204).json({message:"No doctors found in the database!"});
     res.json({doctors})
 
