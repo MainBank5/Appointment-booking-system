@@ -32,7 +32,7 @@ const Header = () => {
 
   const handleScroll = () => {
     window.addEventListener('scroll', () => {
-      if(document.body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
+      if(document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
         headerRef.current.classList.add('sticky-nav')
       } else {
         headerRef.current.classList.remove('sticky-nav')

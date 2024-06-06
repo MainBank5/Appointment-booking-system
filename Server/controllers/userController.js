@@ -96,5 +96,30 @@ const updateUserDetails = asyncHandler(async (req, res) => {
   res.status(200).json({ message: 'User details updated successfully!' });
 });
 
+const handleUserLogout = asyncHandler( async ( req, res) => {
+  //handle deletion of accesstoken on client side
 
-module.exports = { userRegister, userLogin, updateUserDetails };
+  const cookies = res.cookies();
+  if(!cookies.jwt) return res.status(204); //no content
+  const refreshToken = cookies.jwt;
+
+  //is the refreshToken in the database?
+  const foundUser = await User.findOne({refreshToken}).exec().lean();
+  if(!foundUser) {
+      res.clearCookie('jwt', {httpOnly:true, sameSite:'None', maxAge:24 * 60 * 60 * 100});
+      return res.sendStatus(204)
+  }
+
+  //delete the refreshToken in the database
+  foundUser.refreshToken = [];
+  const result = await foundUser.save();
+  console.log(result);
+
+  //clear the refreshToken cookie
+  res.clearCookie('jwt', {httpOnly:true, sameSite:'None', maxAge:24 * 60 * 60 * 100});
+  res.sendStatus(204);
+})
+
+
+
+module.exports = { userRegister, userLogin, updateUserDetails, handleUserLogout};

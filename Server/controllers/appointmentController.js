@@ -2,7 +2,9 @@ const Appointment = require('../models/Appointment');
 const asyncHandler = require('express-async-handler');
 
 const appointmentBooking = asyncHandler(async (req, res) => {
-    const { doctor, appointmentDate } = req.body;
+    if(!req?.params?.id) return res.status(400).json({message:"doctor's ID required"});
+    const doctor = req.params.id;
+    const { appointmentDate } = req.body;
     //console.log('Request body:', req.body);
     //console.log('User ID from token:', req.userId);
 
