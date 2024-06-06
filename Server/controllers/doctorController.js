@@ -26,7 +26,7 @@ const doctorRegister = asyncHandler (async (req, res) => {
 
 });
 
-const doctorLogin = asyncHandler (async (req, res) => {
+const handleDoctorLogin = asyncHandler (async (req, res) => {
     const {email, password} = req.body;
     if(!email || password) return res.status(400).json({message:"Login credentials required"});
 
@@ -117,4 +117,4 @@ const handleDoctorLogout = asyncHandler( async ( req, res) => {
 
 
 
-module.exports = { doctorRegister, doctorLogin, getAllDoctors, updateDoctor, handleDoctorLogout }
+module.exports = { doctorRegister, handleDoctorLogin, getAllDoctors, updateDoctor, handleDoctorLogout }

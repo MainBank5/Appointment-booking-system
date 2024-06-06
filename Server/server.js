@@ -21,27 +21,27 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 
 //public routes
-app.use('/api/doctors', require('./routes/doctor/doctorRoute'));
+app.use('/api/doctors', require('./routes/allDoctors'));
 
 //user routes
-app.use('/api/user/register', require('./routes/user/userRoutes'));
-app.use('/api/user/login', require('./routes/user/userRoutes'));
-app.use('/api/user/logout', require('./routes/user/userRoutes'))
+app.use('/api/user/register', require('./routes/userRoutes/userRegister'));
+app.use('/api/user/login', require('./routes/userRoutes/userLogin'));
+app.use('/api/user/logout', require('./routes/userRoutes/userLogout'));
 
 //doctor routes
-app.use('/api/doctor/register', require('./routes/doctor/doctorRoute'));
-app.use('/api/doctor/login', require('./routes/doctor/doctorRoute'));
-app.use('api/doctor/logout', require('./routes/doctor/doctorRoute'));
+app.use('/api/doctor/register', require('./routes/doctorRoutes/doctorRegister'));
+app.use('/api/doctor/login', require('./routes/doctorRoutes/doctorLogin'));
+app.use('api/doctor/logout', require('./routes/doctorRoutes/doctorLogout'));
 
 
 app.use(verifyAccess);
 //user-specific protected routes
-app.use('/api/user/update', require('./routes/user/userUpdateRoute'));
+app.use('/api/user/update', require('./routes/userRoutes/userUpdateRoute'));
 app.use('/api/user/appointment', require('./routes/appointmentRoute'));
 app.use('/api/user/review', require('./routes/reviewRoute'));
 
 //doctor-specific protected routes
-app.use('api/doctor/update', require('./routes/doctor/doctorRoute'));
+app.use('api/doctor/update', require('./routes/doctorRoutes/doctorUpdate'));
 
 
 mongoose.connection.once('open', () => {
