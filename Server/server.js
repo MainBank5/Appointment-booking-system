@@ -31,7 +31,7 @@ app.use('/api/user/logout', require('./routes/userRoutes/userLogout'));
 //doctor routes
 app.use('/api/doctor/register', require('./routes/doctorRoutes/doctorRegister'));
 app.use('/api/doctor/login', require('./routes/doctorRoutes/doctorLogin'));
-app.use('api/doctor/logout', require('./routes/doctorRoutes/doctorLogout'));
+app.use('/api/doctor/logout', require('./routes/doctorRoutes/doctorLogout'));
 
 
 app.use(verifyAccess);

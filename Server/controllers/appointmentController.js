@@ -1,8 +1,8 @@
 const Appointment = require('../models/Appointment');
+const User = require('../models/User');
 const asyncHandler = require('express-async-handler');
 
 const appointmentBooking = asyncHandler(async (req, res) => {
-    if(!req?.params?.id) return res.status(400).json({message:"doctor's ID required"});
     const doctor = req.params.id;
     const { appointmentDate } = req.body;
     //console.log('Request body:', req.body);
@@ -21,11 +21,30 @@ const appointmentBooking = asyncHandler(async (req, res) => {
             appointmentDate,
         });
 
-        res.status(201).json({ newAppointment, message: "Appointment created successfully!" });
+        //update the user appointment details in the database
+        if(newAppointment) {
+            const user = await User.findByIdAndUpdate(
+                userId, 
+                { $push: {appointments:newAppointment._id}},
+                {new:true}
+            );
+            if (user) {
+                res.status(201).json({ newAppointment, message: "Appointment created successfully!" });
+            } else{
+                res.status(500).json({ message: "Failed to update user's appointment" });
+            }
+
+
+        } else {
+            return res.status(500).json({ message: "Failed to create appointment! Server error encountered." });
+        }
+
     } catch (error) {
-        console.error('Error creating appointment:', error);
-        res.status(500).json({ message: "Failed to book an appointment! Server error encountered" });
+        return res.status(500).json({ message: "Server error encountered while booking appointment.", error: error.message });
     }
+        
+        
+   
 });
 
 module.exports = { appointmentBooking };
