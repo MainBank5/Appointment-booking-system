@@ -25,6 +25,8 @@ const userRegister = asyncHandler(async (req, res) => {
   } else return res.status(500).json({ message: 'Something went wrong' });
 });
 
+
+
 const userLogin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -32,36 +34,38 @@ const userLogin = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: 'Login credentials required!' });
   }
 
-  // Find user by email
-  const finduser = await User.findOne({ email }).exec();
+  // Find user by email and exclude password and refreshToken fields
+  const foundUser = await User.findOne({ email }).select('+password').exec();
 
   // If user not found
-  if (!finduser) {
+  if (!foundUser) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
   // Compare password
-  const isMatch = await bcrypt.compare(password, finduser.password);
+  const isMatch = await bcrypt.compare(password, foundUser.password);
 
   if (isMatch) {
     // Create access token
     const accessToken = jwt.sign(
-      { id: finduser._id, email: finduser.email },
+      { id: foundUser._id, email: foundUser.email },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: '1h' }
     );
 
     // Create refresh token
     const refreshToken = jwt.sign(
-      { id: finduser._id },
+      { id: foundUser._id },
       process.env.REFRESH_TOKEN_SECRET,
       { expiresIn: '1d' }
     );
 
     // Save refresh token with the user
-    finduser.refreshToken = refreshToken;
-    await finduser.save();
-    const userData = await User.findById({_id:finduser._id}).select('-password -refreshToken -email');
+    foundUser.refreshToken = refreshToken;
+    await foundUser.save();
+
+    // Exclude password and refreshToken fields from user data
+    const userData = await User.findById(foundUser._id).select('-password -refreshToken -email');
 
     // Set refresh token as a cookie
     res.cookie('jwt', refreshToken, {
@@ -69,12 +73,15 @@ const userLogin = asyncHandler(async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
-    // Send access token to be used on the client side
+    // Send access token and user data to be used on the client side
     res.status(200).json({ accessToken, userData, message: 'Login successful' });
   } else {
     res.status(400).json({ message: 'Invalid credentials' });
   }
 });
+
+
+
 
 const updateUserDetails = asyncHandler(async (req, res) => {
   if (!req?.params?.id)
@@ -96,6 +103,7 @@ const updateUserDetails = asyncHandler(async (req, res) => {
   await foundUser.save();
   res.status(200).json({ message: 'User details updated successfully!' });
 });
+
 
 const handleUserLogout = asyncHandler( async ( req, res) => {
   //handle deletion of accesstoken on client side

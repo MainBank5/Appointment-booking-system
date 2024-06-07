@@ -43,7 +43,7 @@ app.use('/api/user/appointment', require('./routes/appointmentRoute'));
 app.use('/api/user/review', require('./routes/reviewRoute'));
 
 //doctor-specific protected routes
-app.use('api/doctor/update', require('./routes/doctorRoutes/doctorUpdate'));
+app.use('/api/doctor/update', require('./routes/doctorRoutes/doctorUpdate'));
 
 
 mongoose.connection.once('open', () => {

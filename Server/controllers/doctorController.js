@@ -61,7 +61,7 @@ const updateDoctor = asyncHandler (async (req, res) => {
     const doctorId = req.params.id;
     if(!doctorId) return res.status(400).json({message:"ID required"});
     
-    const foundDoctor = await Doctor.findById({doctorId}).exec();
+    const foundDoctor = await Doctor.findById(doctorId).exec();
     if(!foundDoctor) {
         return res.status(204).json({message:"Doctor not found"})
     }
@@ -91,29 +91,30 @@ const getAllDoctors = asyncHandler ( async (req, res ) => {
 
 });
 
-const handleDoctorLogout = asyncHandler( async ( req, res) => {
-    //handle deletion of accesstoken on client side
-
-    const cookies = res.cookies();
-    if(!cookies?.jwt) return res.status(204); //no content
+const handleDoctorLogout = asyncHandler(async (req, res) => {
+    // Handle deletion of access token on client side
+    const cookies = req.cookies;
+    if (!cookies?.jwt) return res.status(204).json({ message: 'No content' }); // no content
     const refreshToken = cookies.jwt;
 
-    //is the refreshToken in the database?
-    const foundDoctor = await Doctor.findOne({refreshToken}).exec().lean();
-    if(!foundDoctor) {
-        res.clearCookie('jwt', {httpOnly:true, sameSite:'None', maxAge:24 * 60 * 60 * 100});
-        return res.sendStatus(204)
+    // Is the refreshToken in the database?
+    const foundDoctor = await Doctor.findOne({ refreshToken }).exec();
+    if (!foundDoctor) {
+        res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 100 });
+        return res.sendStatus(204);
     }
 
-    //delete the refreshToken in the database
+    // Delete the refreshToken in the database
     foundDoctor.refreshToken = foundDoctor.refreshToken.filter(token => token !== refreshToken);
     const result = await foundDoctor.save();
     console.log(result);
 
-    //clear the refreshToken cookie
-    res.clearCookie('jwt', {httpOnly:true, sameSite:'None', maxAge:24 * 60 * 60 * 100});
+    // Clear the refreshToken cookie
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 100 });
     res.sendStatus(204);
-})
+});
+
+
 
 
 
