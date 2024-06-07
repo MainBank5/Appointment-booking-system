@@ -3,7 +3,7 @@ const User = require('../models/User');
 const asyncHandler = require('express-async-handler');
 
 const appointmentBooking = asyncHandler(async (req, res) => {
-    const doctor = req.params.id;
+    const doctor = req?.params?.id;
     const { appointmentDate } = req.body;
     //console.log('Request body:', req.body);
     //console.log('User ID from token:', req.userId);

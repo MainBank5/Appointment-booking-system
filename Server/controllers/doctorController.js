@@ -28,7 +28,7 @@ const doctorRegister = asyncHandler (async (req, res) => {
 
 const handleDoctorLogin = asyncHandler (async (req, res) => {
     const {email, password} = req.body;
-    if(!email || password) return res.status(400).json({message:"Login credentials required"});
+    if(!email || !password) return res.status(400).json({message:"Login credentials required"});
 
     const findUser = await Doctor.findOne({email}).exec();
     if(!findUser) return res.sendStatus(401).json({message:"Unauthorized!"});
@@ -37,9 +37,9 @@ const handleDoctorLogin = asyncHandler (async (req, res) => {
     if(isMatch) {
         const roles = Object.values(findUser.roles).filter(Boolean)
         const accessToken = jwt.sign (
-            {id: findUser._id, roles:findUser.roles},
+            {id: findUser._id, roles:roles},
             process.env.ACCESS_TOKEN_SECRET,
-            {expiresIn:'30m'}
+            {expiresIn:'1h'}
         );
 
         const refreshToken = jwt.sign(
@@ -50,7 +50,7 @@ const handleDoctorLogin = asyncHandler (async (req, res) => {
         findUser.refreshToken = refreshToken;
         await findUser.save();
 
-        res.cookie('jwt', refreshToken, {httpOnly:true, sameSite:'None', maxAge:24 * 60 * 60 * 100});
+        res.cookie('jwt', refreshToken, {httpOnly:true, sameSite:'none', maxAge:24 * 60 * 60 * 100});
         res.json({accessToken, roles})
     } else {
         res.status(401)

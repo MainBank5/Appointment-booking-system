@@ -4,4 +4,4 @@ const {handleDoctorLogout} = require('../../controllers/doctorController');
 
 router.post('/', handleDoctorLogout)
 
-module.exports = router
+module.exports = router 

@@ -61,6 +61,7 @@ const userLogin = asyncHandler(async (req, res) => {
     // Save refresh token with the user
     finduser.refreshToken = refreshToken;
     await finduser.save();
+    const userData = await User.findById({_id:finduser._id}).select('-password -refreshToken -email');
 
     // Set refresh token as a cookie
     res.cookie('jwt', refreshToken, {
@@ -69,7 +70,7 @@ const userLogin = asyncHandler(async (req, res) => {
     });
 
     // Send access token to be used on the client side
-    res.status(200).json({ accessToken, message: 'Login successful' });
+    res.status(200).json({ accessToken, userData, message: 'Login successful' });
   } else {
     res.status(400).json({ message: 'Invalid credentials' });
   }
