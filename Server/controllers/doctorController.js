@@ -118,4 +118,5 @@ const handleDoctorLogout = asyncHandler(async (req, res) => {
 
 
 
+
 module.exports = { doctorRegister, handleDoctorLogin, getAllDoctors, updateDoctor, handleDoctorLogout }
