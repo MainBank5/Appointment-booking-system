@@ -54,7 +54,7 @@ const Login = () => {
               {errors.password && <span className="text-red-600">{errors.password.message}</span>}
             </div>
 
-            <button type="submit" className="btn bg-blue-600 text-white p-2 rounded">Sign Up</button>
+            <button type="submit" className="btn bg-blue-600 text-white p-2 rounded">Log in</button>
           </form>
         </div>
       </div>
