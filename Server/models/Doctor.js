@@ -20,7 +20,7 @@ const doctorSchema = new Schema({
     specialization:{type:String},
     qualifications:{type:Array},
     experience:{type:Array},
-    bio:{type:String, maxLength:50},
+    bio:{type:String, maxLength:250},
     timeSlots:{type:Array},
     reviews:[{type:mongoose.Types.ObjectId, ref:"Review"}],
     rating:{type:Number, default:0},
