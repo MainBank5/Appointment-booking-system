@@ -1,8 +1,12 @@
 import { useForm } from 'react-hook-form';
 import axios from 'axios'
 import {Link, useNavigate} from 'react-router-dom'
+import { useState } from 'react';
 
 const Login = () => {
+    const [user, setUser] = useState('');
+    const[token, setToken] = useState('')
+
     const navigate = useNavigate();
   const {
     register,
@@ -12,11 +16,13 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     const response = await axios.post('http://localhost:8080/api/user/login', data)
-    console.log(data)
+    //console.log(data)
     console.log(response)
+    console.log(response.data.accessToken)
+    console.log(response.data.userData)
     navigate('/')
   };
-  
+ 
   return (
     <div className="container">
       <div className="flex flex-col md:flex-row gap-20">
