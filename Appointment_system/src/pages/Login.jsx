@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 const Login = () => {
     const [user, setUser] = useState('');
-    const[token, setToken] = useState('')
+    const[token, setToken] = useState('');
 
     const navigate = useNavigate();
   const {
@@ -20,6 +20,8 @@ const Login = () => {
     console.log(response)
     console.log(response.data.accessToken)
     console.log(response.data.userData)
+    setToken(response.data.accessToken)
+    setUser(response.data.userData)
     navigate('/')
   };
  
@@ -28,9 +30,9 @@ const Login = () => {
       <div className="flex flex-col md:flex-row gap-20">
         {/* Sign up icons */}
         <div className=" w-full md:w-1/2 p-6">
-          <h1 className="heading">Already Have an Account?</h1>
-          <p className="text_para">Log in as a User</p>
-          <p>Dont have an account? <Link to="/signup" className='text-blue-600'>Sign up </Link> instead</p>
+          <h1 className="heading">Patients Log In</h1>
+          <p className='text_para'>Dont have an account? <Link to="/signup" className='text-blue-600'>Sign up </Link> instead</p>
+          <p className='mt-10 text-md'>Are you a doctor? Log in <Link to="/doctor/login" className='text-blue-600'>here</Link></p>
         </div>
 
         <div className="w-full md:w-1/2 p-6">

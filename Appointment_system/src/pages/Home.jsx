@@ -39,9 +39,12 @@ const Home = () => {
                     architecto! Quam veniam q uas fugiat repellat laudantium
                     tempore?
                   </p>
-                  <button className="btn border-4 border-black hover:bg-blue-500">
+                  <Link to="/doctors">
+                    <button className="btn border-4 border-black hover:bg-blue-500">
                     Book an Appointment
                   </button>
+                  </Link>
+                  
                 </div>
                 <div className="mt-[25px] flex flex-col lg:flex-row lg:items-center lg:mt-[20px] gap-5 lg:gap-30px">
                   <div>

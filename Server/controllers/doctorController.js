@@ -30,28 +30,29 @@ const handleDoctorLogin = asyncHandler (async (req, res) => {
     const {email, password} = req.body;
     if(!email || !password) return res.status(400).json({message:"Login credentials required"});
 
-    const findUser = await Doctor.findOne({email}).exec();
-    if(!findUser) return res.sendStatus(401).json({message:"Unauthorized!"});
+    const findDoctor = await Doctor.findOne({email}).exec();
+    if(!findDoctor) return res.sendStatus(401).json({message:"Unauthorized!"});
 
-    const isMatch = await bcrypt.compare(password, findUser.password);
+    const isMatch = await bcrypt.compare(password, findDoctor.password);
     if(isMatch) {
-        const roles = Object.values(findUser.roles).filter(Boolean)
+        const roles = Object.values(findDoctor.roles).filter(Boolean)
         const accessToken = jwt.sign (
-            {id: findUser._id, roles:roles},
+            {id: findDoctor._id, roles:roles},
             process.env.ACCESS_TOKEN_SECRET,
             {expiresIn:'1h'}
         );
 
         const refreshToken = jwt.sign(
-            {id:findUser._id},
+            {id:findDoctor._id},
             process.env.REFRESH_TOKEN_SECRET,
             {expiresIn:'1d'}
         )
-        findUser.refreshToken = refreshToken;
-        await findUser.save();
+        findDoctor.refreshToken = refreshToken;
+        await findDoctor.save();
 
+        const doctorData = await findDoctor.findById(findDoctor._id).select('-password -refreshToken -email')
         res.cookie('jwt', refreshToken, {httpOnly:true, sameSite:'none', maxAge:24 * 60 * 60 * 100});
-        res.json({accessToken, roles})
+        res.json({accessToken, roles, doctorData});
     } else {
         res.status(401)
     }

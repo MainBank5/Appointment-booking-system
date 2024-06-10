@@ -6,7 +6,7 @@ const handleRefreshToken = asyncHandler ( async (req, res) => {
     const cookies = req.cookies;
     if(!cookies?.jwt) return res.sendStatus(401);
     const refreshToken = cookies.jwt;
-    res.clearCookie('jwt', {httpOnly:true, sameSite:'None', maxAge:24 * 60 * 60 * 100});
+    //res.clearCookie('jwt', {httpOnly:true, sameSite:'None'});
 
     const foundDoctor = await Doctor.findOne({refreshToken}).exec();
 

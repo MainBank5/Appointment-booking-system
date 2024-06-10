@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
-import axios from 'axios'
+import {axiosdoctor} from '../API/api'
 import {Link, useNavigate} from 'react-router-dom'
 
-const Signup = () => {
+const Doctorsignup = () => {
     const navigate = useNavigate();
   const {
     register,
@@ -11,10 +11,10 @@ const Signup = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const response = await axios.post('http://localhost:8080/api/user/register', data)
+    const response = await axiosdoctor.post('/register', data)
     console.log(data)
     console.log(response)
-    navigate('/login')
+    navigate('/doctor/login')
   };
   
   return (
@@ -22,9 +22,9 @@ const Signup = () => {
       <div className="flex flex-col md:flex-row gap-20">
         {/* Sign up icons */}
         <div className=" w-full md:w-1/2 p-6">
-          <h1 className="heading">Want to book an Appointment?</h1>
-          <p className="text_para">Sign Up as a patient.</p>
-          <p>Have an account? <Link to="/login" className='text-blue-600'>Log in </Link> instead</p>
+          <h1 className="heading">For Healthcare-practioners</h1>
+          <p className="text_para">Sign Up as a Doctor</p>
+          <p>Have an account? <Link to="/doctor/login" className='text-blue-600'>Log in </Link> instead</p>
         </div>
 
         <div className="w-full md:w-1/2 p-6">
@@ -73,7 +73,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
-
-
-
+export default Doctorsignup;

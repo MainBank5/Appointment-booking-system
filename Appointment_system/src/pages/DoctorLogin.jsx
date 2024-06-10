@@ -1,9 +1,13 @@
 import { useForm } from 'react-hook-form';
-import axios from 'axios'
+import {axiosdoctor} from '../API/api'
 import {Link, useNavigate} from 'react-router-dom'
+import { useContext } from 'react';
+import { AppContext } from '../App';
 
-const Signup = () => {
-    const navigate = useNavigate();
+const Doctorlogin = () => {
+   
+  const {profile, setProfile, setToken} = useContext(AppContext)
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -11,36 +15,29 @@ const Signup = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const response = await axios.post('http://localhost:8080/api/user/register', data)
-    console.log(data)
+    const response = await axiosdoctor.post('/login', data)
+    //console.log(data)
     console.log(response)
-    navigate('/login')
+    console.log(response.data.accessToken)
+    console.log(response.data.doctorData)
+    setToken(response.data.accessToken)
+    setProfile(response.data.doctorData)
+    navigate('/')
   };
-  
+ 
   return (
     <div className="container">
       <div className="flex flex-col md:flex-row gap-20">
         {/* Sign up icons */}
         <div className=" w-full md:w-1/2 p-6">
-          <h1 className="heading">Want to book an Appointment?</h1>
-          <p className="text_para">Sign Up as a patient.</p>
-          <p>Have an account? <Link to="/login" className='text-blue-600'>Log in </Link> instead</p>
+          <h1 className="heading">Doctors&apos; Log In</h1>
+          <p>Dont have an account? <Link to="/doctor/signup" className='text-blue-600'>Sign up </Link> instead</p>
+          <p className="text_para">Want to book an appointment? Log in as <Link to="/login" className='text-blue-600'>patient</Link></p>
         </div>
 
         <div className="w-full md:w-1/2 p-6">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col mb-4">
-              <label htmlFor="name" className="mb-2">FirstName</label>
-              <input
-                type="text"
-                id="name"
-                className="border-2 p-2 outline-none"
-                placeholder="Enter name..."
-                {...register('name', { required: 'This field is required' })}
-              />
-              {errors.name && <span className="text-red-600">{errors.name.message}</span>}
-            </div>
-
+        
             <div className="flex flex-col mb-4">
               <label htmlFor="email" className="mb-2">Email</label>
               <input
@@ -65,7 +62,7 @@ const Signup = () => {
               {errors.password && <span className="text-red-600">{errors.password.message}</span>}
             </div>
 
-            <button type="submit" className="btn bg-blue-600 text-white p-2 rounded">Sign Up</button>
+            <button type="submit" className="btn bg-blue-600 text-white p-2 rounded">Log in</button>
           </form>
         </div>
       </div>
@@ -73,7 +70,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
-
-
-
+export default Doctorlogin;

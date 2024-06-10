@@ -11,6 +11,7 @@ const userSchema = new Schema({
     bloodType: { type: String },
     appointments: [{ type: mongoose.Types.ObjectId, ref: "Appointment" }],
     roles: {
+        
         patient: { type: Number, default: 1002 }
       
     },

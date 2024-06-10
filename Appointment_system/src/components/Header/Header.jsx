@@ -50,10 +50,10 @@ const Header = () => {
       <div className='container flex items-center justify-between'>
 
           {/*logo */}
-        <div className='max-w-full flex items-center gap-1 cursor-pointer'>
+        <Link to="/" className='max-w-full flex items-center gap-1 cursor-pointer'>
           <span><FaHandHoldingMedical size={35} className='text-blue-600'/></span>
           <h1 className='md:text-2xl text-4xl'> MediCare</h1>
-        </div>
+        </Link>
 
         <div className="hidden md:block">
           <ul className='flex items-center gap-11'>

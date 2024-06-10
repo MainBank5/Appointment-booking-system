@@ -1,7 +1,15 @@
 import axios from 'axios'
 
-const axiosInstance = axios.create({
-    baseURL:'http://localhost:8080/api/'
+const axiosUsers = axios.create({
+    baseURL:'http://localhost:8080/api/user',
+    withCredentials:true
+})
+const axiosdoctor = axios.create({
+    baseURL:'http://localhost:8080/api/doctor',
+    withCredentials:true
 })
 
-export default axiosInstance;
+export {
+    axiosUsers,
+    axiosdoctor
+} 
