@@ -1,5 +1,32 @@
-This is a doctor's appointment booking system. Users can create an account, book an appointment with their preferred doctor and leave a review of the doctor. Doctors can also create their profile, show their experience, specilization and days when they're open to take appointments. Once a doctor sets up their profile, they can log in to see and manage their list of appointments.  
+# Doctor's Appointment Booking System
 
-The system is built with Node.js/Express and MongoDB for the server and database and React, tailwindCSS for the frontend. It supports multiple logins i.e users and doctors can securely login with multiple devices and log out on one device without affecting their session on the other device. All athorization and authentication is implemented using JWT - accessToken and refreshToken. The accessToken for verify user identity and refreshToken for enabling isssuance of new accessToken once the first one expires. The refreshToken is stored in httpOnly cookie for improved security. The accessToken is stored in memory/session and accessed in the frontend for authorization. Firebase is used to store the users profile picture.
+This is a CRUD (Create, Read, Update, Delete) application built with MERN. The system allows users to create an account, book appointments with their preferred doctor, and leave reviews for the doctors. Doctors, on the other hand, can create profiles showcasing their experience, specialization, and availability for appointments. Once a doctor sets up their profile, they can log in to manage their appointments.
+# Features
 
-The frontend is built with react and users react-router-dom for route protection and redux to store session data such as username and profile.Axios and react tanstack query to consume the backend api effieciently.
+    User Authentication: Supports secure user authentication using JWT (JSON Web Tokens). Users and doctors can securely log in with multiple devices, and logging out on one device does not affect their session on other devices.
+
+    Authorization: Implements role-based authorization to ensure that only authenticated users and doctors can access their respective functionalities.
+
+    Profile Management: Users can upload a profile picture, and doctors can showcase their experience, specialization, and availability for appointments.
+
+    Appointment Booking: Users can book appointments with their preferred doctors and view/manage their upcoming appointments.
+
+    Review System: Users can leave reviews for doctors, allowing others to make informed decisions when choosing a doctor.
+
+# Technology Stack
+## Backend
+
+    Node.js/Express: Handles server-side logic and provides RESTful APIs for frontend interaction.
+    MongoDB: Utilized as the database to store user accounts, doctor profiles, appointments, and reviews.
+    JWT (JSON Web Tokens): Implements authentication and authorization mechanisms using access tokens and refresh tokens.
+    Firebase: Stores user profile pictures for improved user experience.
+
+## Frontend
+
+
+    React: Builds the user interface to interact with the backend APIs.
+    React Router: Provides route protection and navigation within the application.
+    Redux: Manages session data such as user profiles and authentication status.
+    Axios and React Query: Efficiently consume backend APIs for seamless data retrieval and manipulation.
+    Tailwind CSS: Utilized for styling and enhancing the overall user experience.
+
