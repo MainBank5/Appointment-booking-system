@@ -1,28 +1,36 @@
 import { useForm } from 'react-hook-form';
 import axios from 'axios'
 import {Link, useNavigate} from 'react-router-dom'
-import { useState } from 'react';
+import { useContext } from 'react';
+import { AppContext } from '../context/UserContext';
 
 const Login = () => {
-    const [user, setUser] = useState('');
-    const[token, setToken] = useState('');
+    const {setToken, setUser} = useContext(AppContext)
 
     const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }, reset
   } = useForm();
 
   const onSubmit = async (data) => {
-    const response = await axios.post('http://localhost:8080/api/user/login', data)
+    try {
+      const response = await axios.post('http://localhost:8080/api/user/login', data)
     //console.log(data)
-    console.log(response)
-    console.log(response.data.accessToken)
-    console.log(response.data.userData)
-    setToken(response.data.accessToken)
-    setUser(response.data.userData)
-    navigate('/')
+    console.log(response);
+    console.log(response.data.accessToken);
+    console.log(response.data.userData);
+    setToken(response.data.accessToken);
+    setUser(response.data.userData);
+    navigate('/');
+
+    
+    reset();
+    } catch (error) {
+      console.error("Login failed", error);
+    }
+    
   };
  
   return (

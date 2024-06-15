@@ -7,20 +7,18 @@ import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import Doctorsignup from "./pages/DoctorSignup"
 import Doctorlogin from "./pages/DoctorLogin"
-import { createContext , useState} from "react"
-export const AppContext = createContext()
+import {UserProvider} from './context/UserContext'
 
 
 
 function App() {
 
-  const [profile, setProfile] = useState('')
-  const [token, setToken] = useState('')
+ 
 
 
   return (
-    <>
-    <AppContext.Provider value={{profile, setProfile, setToken, token}}> 
+    
+    <UserProvider>
     <Header/>
     
     <Routes>
@@ -32,8 +30,8 @@ function App() {
       <Route path="/doctor/signup" element={<Doctorsignup/>}/>
       <Route path="/doctor/login" element={<Doctorlogin/>}/>
     </Routes>
-    </AppContext.Provider>
-    </>
+    </UserProvider>
+    
   )
 }
 

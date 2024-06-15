@@ -1,12 +1,11 @@
 import { useForm } from 'react-hook-form';
 import {axiosdoctor} from '../API/api'
 import {Link, useNavigate} from 'react-router-dom'
-import { useContext } from 'react';
-import { AppContext } from '../App';
+
 
 const Doctorlogin = () => {
    
-  const {profile, setProfile, setToken} = useContext(AppContext)
+  
   const navigate = useNavigate();
   const {
     register,
@@ -20,8 +19,8 @@ const Doctorlogin = () => {
     console.log(response)
     console.log(response.data.accessToken)
     console.log(response.data.doctorData)
-    setToken(response.data.accessToken)
-    setProfile(response.data.doctorData)
+    //setToken(response.data.accessToken)
+    //setProfile(response.data.doctorData)
     navigate('/')
   };
  
