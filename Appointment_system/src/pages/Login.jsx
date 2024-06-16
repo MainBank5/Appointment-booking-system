@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import axios from 'axios'
+import { axiosusers } from '../API/api';
 import {Link, useNavigate} from 'react-router-dom'
 import { useContext } from 'react';
 import { AppContext } from '../context/UserContext';
@@ -16,11 +16,12 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('http://localhost:8080/api/user/login', data)
+      const response = await axiosusers.post('/login', data)
     //console.log(data)
     console.log(response);
     console.log(response.data.accessToken);
     console.log(response.data.userData);
+    console.log(response.data.userData.name);
     setToken(response.data.accessToken);
     setUser(response.data.userData);
     navigate('/');

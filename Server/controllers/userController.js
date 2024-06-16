@@ -70,6 +70,7 @@ const userLogin = asyncHandler(async (req, res) => {
     // Set refresh token as a cookie
     res.cookie('jwt', refreshToken, {
       httpOnly: true,
+      sameSite:"None",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
@@ -120,7 +121,7 @@ const handleUserLogout = asyncHandler(async (req, res) => {
   const foundUser = await User.findOne({ refreshToken }).exec();
   if (!foundUser) {
     console.log('User not found in database');
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None' });
     return res.sendStatus(204);
   }
 
@@ -130,7 +131,7 @@ const handleUserLogout = asyncHandler(async (req, res) => {
   console.log('User updated:', result);
 
   // Clear the refresh token cookie
-  res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+  res.clearCookie('jwt', { httpOnly: true, sameSite: 'None' });
   res.sendStatus(204);
 });
 
