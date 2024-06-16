@@ -1,15 +1,15 @@
 import axios from 'axios'
 
-const axiosUsers = axios.create({
+const axiosusers = axios.create({
     baseURL:'http://localhost:8080/api/user',
-    withCredentials:true
+    withCredentials:true,
 })
 const axiosdoctor = axios.create({
     baseURL:'http://localhost:8080/api/doctor',
-    withCredentials:true
+    withCredentials:true,
 })
 
 export {
-    axiosUsers,
+    axiosusers,
     axiosdoctor
 } 

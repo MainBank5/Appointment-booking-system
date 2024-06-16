@@ -105,29 +105,37 @@ const updateUserDetails = asyncHandler(async (req, res) => {
 });
 
 
-const handleUserLogout = asyncHandler( async ( req, res) => {
-  //handle deletion of accesstoken on client side
-
+const handleUserLogout = asyncHandler(async (req, res) => {
+  console.log('Logout request received');
   const cookies = req.cookies;
-  if(!cookies?.jwt) return res.status(204); //no content
+  if (!cookies?.jwt) {
+    console.log('No JWT cookie found');
+    return res.sendStatus(204); // No content
+  }
+  
   const refreshToken = cookies.jwt;
-
-  //is the refreshToken in the database?
-  const foundUser = await User.findOne({refreshToken}).exec();
-  if(!foundUser) {
-      res.clearCookie('jwt', {httpOnly:true, sameSite:'None', maxAge:24 * 60 * 60 * 100});
-      return res.sendStatus(204)
+  console.log('Refresh token:', refreshToken);
+  
+  // Check if the refresh token is in the database
+  const foundUser = await User.findOne({ refreshToken }).exec();
+  if (!foundUser) {
+    console.log('User not found in database');
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+    return res.sendStatus(204);
   }
 
-  //delete the refreshToken in the database
+  // Delete the refresh token from the database
   foundUser.refreshToken = foundUser.refreshToken.filter(token => token !== refreshToken);
   const result = await foundUser.save();
-  console.log(result);
+  console.log('User updated:', result);
 
-  //clear the refreshToken cookie
-  res.clearCookie('jwt', {httpOnly:true, sameSite:'None', maxAge:24 * 60 * 60 * 100});
+  // Clear the refresh token cookie
+  res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
   res.sendStatus(204);
-})
+});
+
+
+
 
 
 

@@ -4,4 +4,4 @@ const {handleUserLogout} = require('../../controllers/userController');
 
 router.post('/', handleUserLogout)
 
-module.exports = router
+module.exports = router;
