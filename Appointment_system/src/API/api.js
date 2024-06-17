@@ -1,5 +1,5 @@
 import axios from 'axios';
-import refreshAccessToken from '../utils/refreshAccessToken';
+import refreshAccessToken from '../utils/refreshAccess';
 
 const axiosusers = axios.create({
   baseURL: 'http://localhost:8080/api/user',

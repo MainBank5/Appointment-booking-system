@@ -9,6 +9,7 @@ import Doctorsignup from "./pages/DoctorSignup"
 import Doctorlogin from "./pages/DoctorLogin"
 import {UserProvider} from './context/UserContext'
 import PrivateRoutes from "./utils/PrivateRoutes"
+import DoctorProfile from "./pages/DoctorProfile"
 
 
 
@@ -32,7 +33,7 @@ function App() {
       <Route path="/doctor/login" element={<Doctorlogin/>}/>
 
       <Route element={<PrivateRoutes/>}>
-        
+        <Route path="/doctors/:doctorId" element={<DoctorProfile/>}/>
       </Route>
 
     </Routes>
