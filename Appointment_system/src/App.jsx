@@ -35,10 +35,8 @@ function App() {
       <Route path="/doctor/login" element={<Doctorlogin/>}/>
 
 
-      <Route path="/doctors/:doctorId" element={<DoctorProfile/>}/>
-      
       <Route element={<PrivateRoutes/>}>
-        
+        <Route path="/doctors/:doctorId" element={<DoctorProfile/>}/>
       </Route>
 
       
