@@ -50,7 +50,7 @@ const handleDoctorLogin = asyncHandler (async (req, res) => {
         findDoctor.refreshToken = refreshToken;
         await findDoctor.save();
 
-        const doctorData = await findDoctor.findById(findDoctor._id).select('-password -refreshToken -email')
+        const doctorData = await Doctor.findById(findDoctor._id).select('-password -refreshToken -email')
         res.cookie('jwt', refreshToken, {httpOnly:true, sameSite:'none', maxAge:24 * 60 * 60 * 100});
         res.json({accessToken, roles, doctorData});
     } else {
@@ -92,18 +92,8 @@ const getAllDoctors = asyncHandler ( async (req, res ) => {
 
 });
 
-const getDoctorProfile = asyncHandler(async (req, res) => {
-    const doctorId = req.params.id;
-    if (!doctorId) return res.status(400).json({ message: "ID required" });
 
-    // Search for doctor in the database
-    const foundDoctor = await Doctor.findById(doctorId).select('-password -refreshToken -email').exec();
-    if (!foundDoctor) {
-        return res.status(404).json({ message: "Doctor not found!" });
-    } else {
-        res.status(200).json(foundDoctor);
-    }
-});
+
 
 
 const handleDoctorLogout = asyncHandler(async (req, res) => {
@@ -136,5 +126,5 @@ const handleDoctorLogout = asyncHandler(async (req, res) => {
 
 module.exports = { doctorRegister, 
     handleDoctorLogin, getAllDoctors, 
-    getDoctorProfile, updateDoctor, 
+     updateDoctor, 
     handleDoctorLogout }
