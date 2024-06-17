@@ -92,6 +92,20 @@ const getAllDoctors = asyncHandler ( async (req, res ) => {
 
 });
 
+const getDoctorProfile = asyncHandler(async (req, res) => {
+    const doctorId = req?.params?.id;
+    if(!doctorId) return res.status(400).json({message:"ID required"});
+
+    //search for doctor in database
+    const foundDoctor = await Doctor.findById(doctorId).exec();
+    if(!foundDoctor) {
+        return res.status(204).json({message:"Doctor not found!"})
+    } else {
+        const doctorProfile = foundDoctor.isSelected('-password -refreshToken -email');
+        res.status(200).json({doctorProfile})
+    }
+})
+
 const handleDoctorLogout = asyncHandler(async (req, res) => {
     // Handle deletion of access token on client side
     const cookies = req.cookies;
@@ -120,4 +134,7 @@ const handleDoctorLogout = asyncHandler(async (req, res) => {
 
 
 
-module.exports = { doctorRegister, handleDoctorLogin, getAllDoctors, updateDoctor, handleDoctorLogout }
+module.exports = { doctorRegister, 
+    handleDoctorLogin, getAllDoctors, 
+    getDoctorProfile, updateDoctor, 
+    handleDoctorLogout }

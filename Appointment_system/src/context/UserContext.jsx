@@ -1,15 +1,21 @@
-import {createContext,  useState} from 'react';
+import { createContext, useState, useEffect } from 'react';
+import { setupInterceptors } from '../API/api';
 
 const AppContext = createContext();
 
-const UserProvider = ({children}) => {
-    const [user, setUser] = useState(null);
-    const [token, setToken] = useState(null);
-  return (
-    <AppContext.Provider value={{user, setUser, token, setToken}}>
-        {children}
-    </AppContext.Provider>
-  )
-}
+const UserProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
-export {UserProvider, AppContext};
+  useEffect(() => {
+    setupInterceptors(setToken);
+  }, [setToken]);
+
+  return (
+    <AppContext.Provider value={{ user, setUser, token, setToken }}>
+      {children}
+    </AppContext.Provider>
+  );
+};
+
+export { UserProvider, AppContext };

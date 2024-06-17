@@ -8,6 +8,7 @@ import Login from "./pages/Login"
 import Doctorsignup from "./pages/DoctorSignup"
 import Doctorlogin from "./pages/DoctorLogin"
 import {UserProvider} from './context/UserContext'
+import PrivateRoutes from "./utils/PrivateRoutes"
 
 
 
@@ -26,9 +27,14 @@ function App() {
       <Route path="/doctors" element={<Doctors/>}/>
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/login" element={<Login/>}/>
-
+       
       <Route path="/doctor/signup" element={<Doctorsignup/>}/>
       <Route path="/doctor/login" element={<Doctorlogin/>}/>
+
+      <Route element={<PrivateRoutes/>}>
+        
+      </Route>
+
     </Routes>
     </UserProvider>
     

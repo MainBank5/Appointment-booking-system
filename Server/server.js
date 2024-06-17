@@ -49,6 +49,7 @@ app.use('/api/doctor/logout', require('./routes/doctorRoutes/doctorLogout'));
 app.use(verifyAccess);
 //user-specific protected routes
 app.use('/api/user/update', require('./routes/userRoutes/userUpdateRoute'));
+app.use('api/user/doctor/profile', require('./routes/bookDoctorRoute'))
 app.use('/api/user/appointment', require('./routes/appointmentRoute'));
 app.use('/api/user/review', require('./routes/reviewRoute'));
 
