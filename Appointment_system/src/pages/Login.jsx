@@ -19,12 +19,12 @@ const Login = () => {
       const response = await axiosusers.post('/login', data)
     //console.log(data)
     console.log(response);
-    console.log(response.data.accessToken);
-    console.log(response.data.userData);
-    console.log(response.data.userData.name);
+    //console.log(response.data.accessToken);
+    //console.log(response.data.userData);
+    //console.log(response.data.userData.name);
     setToken(response.data.accessToken);
     setUser(response.data.userData);
-    navigate('/');
+    navigate('/', {replace:true});
 
     
     reset();

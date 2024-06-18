@@ -7,7 +7,8 @@ const mongoose = require('mongoose');
 const connectDB = require('./config/dbConn');
 const corsOptions = require('./config/corsOptions');
 const {verifyAccess} = require('./middleware/verifyAccess');
-const credentials = require('./middleware/credentials')
+const {unknownEndpoint} = require('./middleware/notFound');
+const {errorHandler} = require('./middleware/errorHandler');
 
 const PORT = process.env.PORT;
 
@@ -58,6 +59,9 @@ app.use('/api/user/review', require('./routes/reviewRoute'));
 //doctor-specific protected routes
 app.use('/api/doctor/update', require('./routes/doctorRoutes/doctorUpdate'));
 
+app.use(unknownEndpoint);
+
+app.use(errorHandler);
 
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB');

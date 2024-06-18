@@ -6,7 +6,7 @@ const PrivateRoutes = () => {
     const {token} = useContext(AppContext);
 
     return (
-        token ? <Outlet/> : <Navigate to="/login" />
+        token ? <Outlet/> : <Navigate to="/login" replace:true />
     )
 }
 
