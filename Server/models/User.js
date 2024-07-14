@@ -6,7 +6,7 @@ const userSchema = new Schema({
     name: { type: String, required: true },
     password: { type: String, required: true },
     phone: { type: String },
-    photo: { type: String },
+    photo: { type: String, default:"https://www.pngarts.com/explore/215296" },
     gender: { type: String, enum: ["male", "female", "trans", "other"] },
     bloodType: { type: String },
     appointments: [{ type: mongoose.Types.ObjectId, ref: "Appointment" }],

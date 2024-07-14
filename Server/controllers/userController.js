@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const userRegister = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, photo} = req.body;
   if (!name || !email || !password)
     return res.status(400).json({ message: 'all credentials are required' });
 
@@ -16,12 +16,20 @@ const userRegister = asyncHandler(async (req, res) => {
   const result = await User.create({
     name,
     email,
+    photo,
     password: hashedpassword,
   });
   console.log(result);
 
   if (result) {
-    res.status(201).json({ message: 'User created successfully' });
+    res.status(201).json({
+      message: 'User created successfully',
+      user: {
+        id: result._id,
+        name: result.name,
+        email: result.email,
+        photo: result.photo,
+      }, });
   } else return res.status(500).json({ message: 'Something went wrong' });
 });
 

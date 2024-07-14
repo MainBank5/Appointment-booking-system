@@ -54,7 +54,7 @@ const Header = () => {
 
   return (
     <nav className="header flex items-center" ref={headerRef}>
-      <div className="container flex items-center justify-between">
+      <div className="container flex items-center justify-between gap-4">
         <Link to="/" className="max-w-full flex items-center gap-1 cursor-pointer">
           <FaHandHoldingMedical size={35} className="text-blue-600" />
           <h1 className="md:text-2xl text-4xl">MediCare</h1>
@@ -88,8 +88,9 @@ const Header = () => {
           </button>
         </div>
 
-        <div onClick={handleMobileMenu} className="block md:hidden">
+        <div onClick={handleMobileMenu} className="block md:hidden px-8">
           {openMenu ? <FaTimes size={25} /> : <FaBars size={25} />}
+          <div></div>
         </div>
 
         {openMenu && (

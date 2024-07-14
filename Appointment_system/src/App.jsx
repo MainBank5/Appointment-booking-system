@@ -10,7 +10,7 @@ import Doctorlogin from "./pages/DoctorLogin"
 import {UserProvider} from './context/UserContext'
 import PrivateRoutes from "./utils/PrivateRoutes"
 import DoctorProfile from "./pages/BookingPage"
-
+import Contact from "./pages/Contact"
 
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home/>}/>
       <Route path="/doctors" element={<DoctorList/>}/>
+      <Route path="/contact" element={<Contact/>}/>
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/login" element={<Login/>}/>
       

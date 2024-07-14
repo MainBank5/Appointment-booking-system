@@ -51,6 +51,7 @@ app.use(verifyAccess);
 //user-specific protected routes
 app.use('/api/user/update', require('./routes/userRoutes/userUpdateRoute'));
 app.use('/api/doctor/profile', require('./routes/bookingRoute'));
+//middleware to ensure only patients book appointments
 app.use('/api/user/appointment', require('./routes/appointmentRoute'));
 app.use('/api/user/review', require('./routes/reviewRoute'));
 
