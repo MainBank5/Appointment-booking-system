@@ -3,13 +3,18 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/UserContext";
 import doctorimg from '../assets/images/feature-img.png';
+import { toast } from "react-toastify";
+
 
 const BookAppointment = () => {
   const { doctorId } = useParams();
   const [doctor, setDoctor] = useState(null);
-  const { token } = useContext(AppContext);
+  const { token, user, appointmentDetails , setAppointmentDetails} = useContext(AppContext);
+  const [appointment, setAppointment] = useState({ appointmentDate: '' });
+
 
   useEffect(() => {
+    let isMounted = true;
     const fetchDoctor = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/doctor/profile/${doctorId}`, {
@@ -17,19 +22,52 @@ const BookAppointment = () => {
             'Authorization': `Bearer ${token}`
           }
         });
-        console.log(response);
-        setDoctor(response.data);
+        if (isMounted) {
+          console.log(response)
+          setDoctor(response.data);
+        }
+        
       } catch (error) {
         console.log("error fetching doctor: ", error);
       }
     };
     fetchDoctor();
+    return () => {
+      isMounted = false; // Cleanup function to update mount status
+    };
   }, [doctorId, token]);
+
+  const handleBooking = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = {
+        appointmentDate: new Date(appointment.appointmentDate),
+        user:user._id
+      };
+      console.log('Form Data:', formData);
+      const response = await axios.post(`http://localhost:8080/api/user/appointment/${doctorId}`, formData, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+          }
+      });
+
+      console.log(response);
+      console.log(response.data.newAppointment);
+      setAppointmentDetails(response.data.newAppointment);
+      console.log(appointmentDetails);
+      toast.success('Appointment booked successfully!');
+    } catch(error) {
+      console.log("error booking appointment: ", error);
+    }
+  }
+
+ 
 
   return (
     <div className="flex flex-col justify-center">
 
-      <div className="mx-32 py-10">
+      <div className="container py-10">
         {doctor ? (
         <div className="flex flex-col md:flex-row justify-around ">
 
@@ -61,10 +99,10 @@ const BookAppointment = () => {
             <h2 className="text-xl py-4 underline">Available Slots:</h2>
             {doctor.timeSlots}
             <div>
-              <form className="flex flex-col py-8">
-                <label htmlFor="" className="text-xl underline">Pick a date:</label>
-                <input type="date" />
-                <button className="btn">Book Appointment</button>
+              <form className="flex flex-col py-8" onSubmit={handleBooking} >
+                <label htmlFor="date" className="text-xl underline">Pick a date:</label>
+                <input type="date" id="date" required onChange={(e) =>  setAppointment({ ...appointment, appointmentDate: e.target.value })} />
+                <button className="btn" type="submit">Book Appointment</button>
               </form>
             </div>
           </div>
