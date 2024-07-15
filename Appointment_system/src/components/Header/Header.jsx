@@ -3,6 +3,7 @@ import { FaTimes, FaBars, FaHandHoldingMedical } from 'react-icons/fa';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { AppContext } from '../../context/UserContext';
 import { axiosusers } from '../../API/api';
+import Profile from '../../features/Profile';
 
 const navLinks = [
   { path: "/", name: "Home" },
@@ -15,6 +16,7 @@ const Header = () => {
   const { user, setUser, setToken } = useContext(AppContext);
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
+  const [profile, setProfile] = useState(false);
   const headerRef = useRef(null);
 
   const handleMobileMenu = () => {
@@ -35,10 +37,8 @@ const Header = () => {
   }, []);
 
   const handleLogOut = async () => {
-    console.log('handleLogOut function called');
     try {
       const response = await axiosusers.post('/logout');
-      console.log('user logged out', response);
       if (response.status === 204) {
         setUser(null);
         setToken(null);
@@ -49,17 +49,20 @@ const Header = () => {
     } catch (error) {
       console.log('Error logging out', error);
     }
-    console.log('handleLogOut function end');
   };
 
   return (
     <nav className="header flex items-center" ref={headerRef}>
-      <div className="container flex items-center justify-between gap-4">
-        <Link to="/" className="max-w-full flex items-center gap-1 cursor-pointer">
+      <div className="md:container flex items-center justify-between gap-4 w-full mx-4">
+        {/* Logo and Site Title */}
+        <Link to="/" className="max-w-full flex items-center gap-1 cursor-pointer ">
           <FaHandHoldingMedical size={35} className="text-blue-600" />
           <h1 className="md:text-2xl text-4xl">MediCare</h1>
         </Link>
+        
 
+
+        {/* Desktop Navigation Links */}
         <div className="hidden md:block">
           <ul className="flex items-center gap-11">
             {navLinks.map((link, index) => (
@@ -79,6 +82,15 @@ const Header = () => {
           </ul>
         </div>
 
+        {/* Mobile and Desktop Avatar */}
+        {user && (
+          <div className="flex items-center gap-4" onClick={() => setProfile(!profile)}>
+            <img src={user.photo} alt="user-profile" className="rounded-full h-12 w-12 md:h-16 md:w-16 object-cover cursor-pointer" />
+            {profile && <Profile/>}
+          </div>
+        )}
+
+        {/* Log Out/Log In Button */}
         <div className="hidden md:flex items-center gap-4">
           <button
             className="bg-blue-600 text-white px-4 py-2 rounded-md flex items-center"
@@ -88,17 +100,19 @@ const Header = () => {
           </button>
         </div>
 
+        {/* Mobile Menu Icon */}
         <div onClick={handleMobileMenu} className="block md:hidden px-8">
           {openMenu ? <FaTimes size={25} /> : <FaBars size={25} />}
-          <div></div>
         </div>
 
+
+        {/* Mobile Menu */}
         {openMenu && (
           <div
-            className="fixed inset-0 bg-blue-500 bg-opacity-95 z-10 flex flex-col items-center gap-4 py-6 transition-transform transform"
+            className="fixed inset-0 bg-white bg-opacity-95 z-10 flex flex-col items-center gap-4 py-6 left-24  transition-transform transform border-t-4 border-l-2 shadow-md"
             style={{ top: '70px' }}
           >
-            <ul className="flex flex-col items-center gap-4">
+            <ul className="flex flex-col items-center justify-between gap-4 h-[20rem]">
               {navLinks.map((link, index) => (
                 <li key={index}>
                   <NavLink
@@ -112,7 +126,7 @@ const Header = () => {
               ))}
             </ul>
             <button
-              className="bg-blue-600 text-[34px] text-white px-4 py-2 rounded-md flex items-center"
+              className="bg-blue-600 text-[34px] text-white px-4 py-2 mt-16 rounded-md flex items-center"
               onClick={user ? handleLogOut : () => navigate('/login')}
             >
               {user ? "Log Out" : "Log In"}
@@ -125,5 +139,8 @@ const Header = () => {
 };
 
 export default Header;
+
+
+
 
 
