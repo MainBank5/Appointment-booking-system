@@ -1,16 +1,17 @@
-import { Routes, Route } from "react-router-dom"
-import Header from "./components/Header/Header"
-import Home from "./pages/Home"
-import './App.css'
-import DoctorList from "./pages/Doctors"
-import Signup from "./pages/Signup"
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header/Header";
+import Home from "./pages/Home";
+import './App.css';
+import DoctorList from "./pages/Doctors";
+import Signup from "./pages/Signup";
 import Login from "./pages/Login"
-import Doctorsignup from "./pages/DoctorSignup"
-import Doctorlogin from "./pages/DoctorLogin"
-import {UserProvider} from './context/UserContext'
-import PrivateRoutes from "./utils/PrivateRoutes"
-import DoctorProfile from "./pages/BookingPage"
-import Contact from "./pages/Contact"
+import Doctorsignup from "./pages/DoctorSignup";
+import Doctorlogin from "./pages/DoctorLogin";
+import {UserProvider} from './context/UserContext';
+import PrivateRoutes from "./utils/PrivateRoutes";
+import DoctorProfile from "./pages/BookingPage";
+import Contact from "./pages/Contact";
+import Payment from "./components/Checkout/Payment";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
 
       <Route element={<PrivateRoutes/>}>
         <Route path="/doctors/:doctorId" element={<DoctorProfile/>}/>
+        <Route path="/checkout" element={<Payment/>}/>
       </Route>
 
       

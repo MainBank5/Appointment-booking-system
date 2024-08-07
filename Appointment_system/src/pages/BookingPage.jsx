@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/UserContext";
@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 
 const BookAppointment = () => {
+  const navigate = useNavigate();
   const { doctorId } = useParams();
   const [doctor, setDoctor] = useState(null);
   const { token, user, appointmentDetails , setAppointmentDetails} = useContext(AppContext);
@@ -57,6 +58,7 @@ const BookAppointment = () => {
       setAppointmentDetails(response.data.newAppointment);
       console.log(appointmentDetails);
       toast.success('Appointment booked successfully!');
+      navigate('/checkout');
     } catch(error) {
       console.log("error booking appointment: ", error);
     }
