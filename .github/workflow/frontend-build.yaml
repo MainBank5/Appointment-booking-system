@@ -1,0 +1,45 @@
+name: Build React App
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Specify your Node.js version here
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Build the app
+      - name: Build
+        run: npm run build
+
+      - name: Change directory
+        run: cd 'Appointment_system'
+
+      # Install dependencies in the Appointment system folder
+      - name: Install dependencies
+        working-directory: 'Appointment_system'
+        run: npm install
+
+      # Build the app in the Appointment system folder
+      - name: Build
+        working-directory: 'Appointment_system'
+        run: npm run build
